@@ -1,21 +1,25 @@
 import nltk
 from nltk.tokenize import word_tokenize
-from utils.pokemon_api import fetch_pokemon_data
 
-def extract_pokemon_names(query: str, known_pokemon: list) -> list:
-    tokens = word_tokenize(query.lower())
-    return [token for token in tokens if token in known_pokemon]
+try:
+    nltk.data.find('tokenizers/punkt')
+except LookupError:
+    nltk.download('punkt')
 
-def build_team(pokemon_names: list) -> list:
+def build_team_from_description(description: str):
+    tokens = word_tokenize(description.lower())
     team = []
-    for name in pokemon_names:
-        try:
-            data = fetch_pokemon_data(name)
-            team.append({
-                "name": name,
-                "types": data["types"],
-                "stats": data["stats"]
-            })
-        except Exception:
-            continue
+
+    if "tank" in tokens:
+        team.append("snorlax")
+    if "fire" in tokens:
+        team.append("charizard")
+    if "attacker" in tokens and "fire" not in tokens:
+        team.append("machamp")
+    if "psychic" in tokens:
+        team.append("alakazam")
+
+    if not team:
+        team.append("pikachu")  # default fallback
+
     return team

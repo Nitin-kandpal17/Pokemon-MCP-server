@@ -7,7 +7,7 @@ from modules.information_retrieval import (
 )
 from modules.comparison import compare_pokemon
 from modules.strategy import get_counters
-from modules.team_builder import extract_pokemon_names, build_team
+from modules.team_builder import build_team_from_description
 from modules.type_chart import get_all_types
 
 app = FastAPI()
@@ -45,7 +45,7 @@ def search_by_generation(generation_name: str):
 @app.get("/compare")
 def compare(pokemon1: str = Query(...), pokemon2: str = Query(...)):
     try:
-        return compare_pokemon(pokemon1, pokemon2)
+        return {"comparison": compare_pokemon(pokemon1, pokemon2)}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
@@ -56,15 +56,12 @@ def get_counter(type_name: str = Query(...)):
     except ValueError as ve:
         raise HTTPException(status_code=404, detail=str(ve))
 
-@app.get("/team_builder")
-def team_builder(query: str = Query(...)):
+@app.get("/team/build")
+def team_build(description: str = Query(...)):
     try:
-        names = extract_pokemon_names(query, KNOWN_POKEMON)
-        if not names:
-            raise HTTPException(status_code=400, detail="No valid Pokémon names found in your query.")
-        return {"team": build_team(names)}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        return {"team": build_team_from_description(description)}
+    except ValueError as ve:
+        raise HTTPException(status_code=400, detail=str(ve))
 
 @app.get("/types")
 def get_types():
