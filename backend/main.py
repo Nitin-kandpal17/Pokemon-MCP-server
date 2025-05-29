@@ -1,10 +1,12 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Query
 from utils.pokemon_api import fetch_pokemon_data
 from modules.information_retrieval import (
     get_pokemon_basic_info,
     search_pokemon_by_type,
     search_pokemon_by_generation
 )
+from modules.comparison import compare_pokemon
+from modules.strategy import get_counters
 
 app = FastAPI()
 
@@ -32,5 +34,19 @@ def search_by_type(type_name: str):
 def search_by_generation(generation_name: str):
     try:
         return {"results": search_pokemon_by_generation(generation_name)}
+    except ValueError as ve:
+        raise HTTPException(status_code=404, detail=str(ve))
+
+@app.get("/compare")
+def compare(pokemon1: str = Query(...), pokemon2: str = Query(...)):
+    try:
+        return compare_pokemon(pokemon1, pokemon2)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/counter")
+def get_counter(type_name: str = Query(...)):
+    try:
+        return {"counters": get_counters(type_name)}
     except ValueError as ve:
         raise HTTPException(status_code=404, detail=str(ve))
