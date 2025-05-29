@@ -1,0 +1,19 @@
+.searchBar {
+  display: flex;
+  gap: 0.5rem;
+  margin: 1rem 0;
+}
+
+.input {
+  padding: 0.5rem;
+  font-size: 1rem;
+  flex: 1;
+}
+
+.button {
+  padding: 0.5rem 1rem;
+  background-color: #0070f3;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
