@@ -8,10 +8,11 @@ from modules.information_retrieval import (
 from modules.comparison import compare_pokemon
 from modules.strategy import get_counters
 from modules.team_builder import extract_pokemon_names, build_team
+from modules.type_chart import get_all_types
 
 app = FastAPI()
 
-# Cache first 151 Pokémon for name matching
+# Cache known Pokémon names (e.g., for Gen 1: 1 to 151)
 KNOWN_POKEMON = [fetch_pokemon_data(str(i))["name"].lower() for i in range(1, 152)]
 
 @app.get("/")
@@ -64,3 +65,7 @@ def team_builder(query: str = Query(...)):
         return {"team": build_team(names)}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/types")
+def get_types():
+    return {"types": get_all_types()}
