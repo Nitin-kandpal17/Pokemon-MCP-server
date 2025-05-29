@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+venv/
+.env
+
+# Node
+node_modules/
+npm-debug.log
+dist/
+build/
+
+# VSCode
+.vscode/
+
+# React
+frontend/pokemon-mcp-ui/node_modules/
+frontend/pokemon-mcp-ui/build/
+
+# General
+.DS_Store
+*.log
