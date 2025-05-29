@@ -7,8 +7,12 @@ from modules.information_retrieval import (
 )
 from modules.comparison import compare_pokemon
 from modules.strategy import get_counters
+from modules.team_builder import extract_pokemon_names, build_team
 
 app = FastAPI()
+
+# Cache first 151 Pokémon for name matching
+KNOWN_POKEMON = [fetch_pokemon_data(str(i))["name"].lower() for i in range(1, 152)]
 
 @app.get("/")
 def read_root():
@@ -50,3 +54,13 @@ def get_counter(type_name: str = Query(...)):
         return {"counters": get_counters(type_name)}
     except ValueError as ve:
         raise HTTPException(status_code=404, detail=str(ve))
+
+@app.get("/team_builder")
+def team_builder(query: str = Query(...)):
+    try:
+        names = extract_pokemon_names(query, KNOWN_POKEMON)
+        if not names:
+            raise HTTPException(status_code=400, detail="No valid Pokémon names found in your query.")
+        return {"team": build_team(names)}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
