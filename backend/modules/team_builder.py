@@ -1,10 +1,14 @@
 import nltk
 from nltk.tokenize import word_tokenize
-
+from pydantic import BaseModel
 try:
     nltk.data.find('tokenizers/punkt')
 except LookupError:
     nltk.download('punkt')
+
+
+class TeamBuildRequest(BaseModel):
+    description: str
 
 def build_team_from_description(description: str):
     tokens = word_tokenize(description.lower())
