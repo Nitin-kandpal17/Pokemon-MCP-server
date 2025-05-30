@@ -1,82 +1,45 @@
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-
-import SearchBar from './components/SearchBar';
-import PokemonCard from './components/PokemonCard';
-import ComparisonPanel from './components/ComparisonPanel';
-
 import SearchPage from './pages/SearchPage';
 import ComparePage from './pages/ComparePage';
 import TeamBuilderPage from './pages/TeamBuilderPage';
+import { getWelcomeMessage } from './services/api';
 
-function App() {
-  const [message, setMessage] = useState('Loading...');
-  const [search, setSearch] = useState('');
-  const [mockPokemon] = useState({
-    name: 'Pikachu',
-    image: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png',
-    types: ['Electric']
-  });
+const App = () => {
+  const [message, setMessage] = useState('');
 
   useEffect(() => {
-    axios.get('http://localhost:8000/')
-      .then((res) => {
-        setMessage(res.data.message || 'Success!');
-      })
-      .catch((err) => {
-        console.error(err);
-        setMessage('Failed to connect to backend');
-      });
+    const fetchWelcome = async () => {
+      try {
+        const msg = await getWelcomeMessage();
+        setMessage(msg);
+      } catch (err) {
+        setMessage('Failed to fetch welcome message.');
+      }
+    };
+
+    fetchWelcome();
   }, []);
 
   return (
     <Router>
-      <div style={{ padding: '2rem' }}>
-        <h1>Pokémon MCP Frontend</h1>
-        <p>Backend Response: <strong>{message}</strong></p>
-
-        <nav style={{ marginBottom: '1rem' }}>
-          <Link to="/search" style={{ marginRight: '1rem' }}>Search</Link>
-          <Link to="/compare" style={{ marginRight: '1rem' }}>Compare</Link>
-          <Link to="/team-builder">Team Builder</Link>
+      <div className="p-6 text-white bg-black min-h-screen">
+        <h1 className="text-5xl font-bold mb-4">Pokémon MCP Frontend</h1>
+        <p className="mb-6 font-semibold">Backend Response: {message}</p>
+        <nav className="flex space-x-6 mb-6">
+          <Link to="/" className="text-blue-400 hover:underline">Search</Link>
+          <Link to="/compare" className="text-blue-400 hover:underline">Compare</Link>
+          <Link to="/team-builder" className="text-blue-400 hover:underline">Team Builder</Link>
         </nav>
 
         <Routes>
-          <Route path="/" element={
-            <>
-              <h2>Mock UI Components</h2>
-
-              <SearchBar
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                onSearch={() => alert(`Search for: ${search}`)}
-              />
-
-              <br />
-
-              <PokemonCard {...mockPokemon} />
-
-              <br />
-
-              <ComparisonPanel
-                leftPokemon={mockPokemon}
-                rightPokemon={{
-                  ...mockPokemon,
-                  name: 'Charizard',
-                  types: ['Fire', 'Flying'],
-                  image: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/6.png'
-                }}
-              />
-            </>
-          } />
-          <Route path="/search" element={<SearchPage />} />
+          <Route path="/" element={<SearchPage />} />
           <Route path="/compare" element={<ComparePage />} />
           <Route path="/team-builder" element={<TeamBuilderPage />} />
         </Routes>
       </div>
     </Router>
   );
-}
+};
 
 export default App;
