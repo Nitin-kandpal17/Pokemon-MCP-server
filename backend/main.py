@@ -28,7 +28,7 @@ app.add_middleware(
 
 # Cache known Pokémon names (e.g., from 1 to 151)
 with open("data/pokemon_names.json") as f:
-    KNOWN_POKEMON = json.load(f)
+    KNOWN_POKEMON = [name.lower() for name in json.load(f)]
 
 
 @app.get("/")
@@ -68,15 +68,33 @@ def by_generation(generation_name: str):
 
 
 @app.get("/compare")
-def compare(pokemon1: str = Query(...), pokemon2: str = Query(...)):
+def compare_pokemon_route(pokemon1: str = Query(...), pokemon2: str = Query(...)):
     try:
-        return {"comparison": compare_pokemon(pokemon1, pokemon2)}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        # Normalize input
+        pokemon1 = pokemon1.strip().lower()
+        pokemon2 = pokemon2.strip().lower()
+        print(f"[Compare] Request received: {pokemon1} vs {pokemon2}")
+
+        # Validate known Pokémon
+        if pokemon1 not in KNOWN_POKEMON or pokemon2 not in KNOWN_POKEMON:
+            raise ValueError("One or both Pokémon are invalid.")
+
+        # Perform the comparison
+        result = compare_pokemon(pokemon1, pokemon2)
+
+        # Validate result
+        if not result or not isinstance(result, str):
+            raise ValueError("Invalid result or missing data.")
+
+        return {"comparison": result}
+
+    except Exception as ex:
+        print(f"[Compare] Error comparing '{pokemon1}' and '{pokemon2}': {ex}")
+        raise HTTPException(status_code=400, detail="Comparison failed. Make sure Pokémon names are valid.")
 
 
 @app.get("/counters")
-def get_counters(type_name: str = Query(...)):
+def get_counters_route(type_name: str = Query(...)):
     try:
         return {"counters": get_counters(type_name)}
     except ValueError as ve:
@@ -87,7 +105,7 @@ def get_counters(type_name: str = Query(...)):
 def team_builder(description: str = Query(...)):
     try:
         return {"team": build_team_from_description(description)}
-    except ValueError as ve:
+    except Exception as ve:
         raise HTTPException(status_code=400, detail=str(ve))
 
 
