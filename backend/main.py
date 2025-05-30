@@ -63,3 +63,4 @@ def team_builder(request: TeamBuildRequest):
 @app.get("/types")
 def get_types():
     return {"types": get_all_types()}
+#
