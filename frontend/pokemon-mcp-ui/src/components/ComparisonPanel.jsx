@@ -1,12 +1,11 @@
-import styles from './ComparisonPanel.module.css';
+import React from 'react';
 import PokemonCard from './PokemonCard';
 
-function ComparisonPanel({ pokemon1, pokemon2 }) {
+function ComparisonPanel({ leftPokemon, rightPokemon }) {
   return (
-    <div className={styles.panel}>
-      <PokemonCard {...pokemon1} />
-      <span className={styles.vs}>VS</span>
-      <PokemonCard {...pokemon2} />
+    <div style={{ display: 'flex', gap: '2rem' }}>
+      <PokemonCard {...leftPokemon} />
+      <PokemonCard {...rightPokemon} />
     </div>
   );
 }

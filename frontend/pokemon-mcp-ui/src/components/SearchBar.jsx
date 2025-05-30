@@ -1,17 +1,17 @@
-import styles from './SearchBar.module.css';
+import React from 'react';
 
-function SearchBar({ value, onChange, onSubmit }) {
+function SearchBar({ value, onChange, onSearch }) {
   return (
-    <form className={styles.searchBar} onSubmit={onSubmit}>
+    <div>
       <input
         type="text"
-        placeholder="Search Pokémon..."
         value={value}
+        placeholder="Search Pokémon..."
         onChange={onChange}
-        className={styles.input}
+        style={{ padding: '0.5rem', marginRight: '0.5rem' }}
       />
-      <button type="submit" className={styles.button}>Search</button>
-    </form>
+      <button onClick={onSearch}>Search</button>
+    </div>
   );
 }
 
