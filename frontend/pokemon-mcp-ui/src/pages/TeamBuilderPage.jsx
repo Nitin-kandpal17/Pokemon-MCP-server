@@ -1,51 +1,67 @@
 import React, { useState } from 'react';
 import { buildTeam } from '../services/api';
 
-const TeamBuilderPage = () => {
+function TeamBuilderPage() {
   const [description, setDescription] = useState('');
-  const [team, setTeam] = useState([]);
+  const [team, setTeam] = useState(null);
   const [error, setError] = useState('');
 
-  const handleBuildTeam = async () => {
+  const handleBuild = async () => {
+    setError('');
+    setTeam(null);
+    if (!description.trim()) {
+      setError('Please provide a description for the team.');
+      return;
+    }
+
     try {
       const data = await buildTeam(description);
-      setTeam(data);
-      setError('');
-    } catch {
+      setTeam(data.team);
+    } catch (err) {
       setError('Failed to build team. Please try again.');
-      setTeam([]);
     }
   };
 
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">Team Builder</h1>
-      <textarea
-        className="w-full p-2 border border-gray-400 rounded mb-4"
-        rows="4"
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-        placeholder="Describe the type of team you want..."
-      />
-      <button
-        onClick={handleBuildTeam}
-        className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-      >
-        Build Team
-      </button>
-      {error && <p className="text-red-500 mt-2">{error}</p>}
-      {team.length > 0 && (
-        <div className="mt-6">
-          <h2 className="text-xl font-semibold mb-2">Suggested Team</h2>
-          <ul className="list-disc list-inside">
-            {team.map((name, idx) => (
-              <li key={idx}>{name}</li>
-            ))}
-          </ul>
+    <div>
+      <h2 className="text-3xl font-bold mb-4">Team Builder</h2>
+
+      <div className="flex flex-col gap-4 mb-6">
+        <textarea
+          placeholder="Describe your strategy or team needs..."
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          className="p-2 rounded text-black min-h-[100px]"
+        />
+        <button
+          onClick={handleBuild}
+          className="bg-green-500 hover:bg-green-600 text-black font-bold py-2 px-4 rounded"
+        >
+          Build Team
+        </button>
+      </div>
+
+      {error && <p className="text-red-400">{error}</p>}
+      {team && (
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+          {team.map((pokemon, idx) => (
+            <div
+              key={idx}
+              className="bg-gray-800 p-4 rounded shadow text-center"
+            >
+              <h3 className="text-xl font-bold mb-2">{pokemon.name}</h3>
+              <img
+                src={pokemon.image}
+                alt={pokemon.name}
+                className="mx-auto mb-2"
+              />
+              <p>{pokemon.types.join(', ')}</p>
+            </div>
+          ))}
         </div>
       )}
     </div>
   );
-};
+}
 
 export default TeamBuilderPage;
