@@ -10,7 +10,7 @@ Built with **FastAPI** (backend) and **React** (frontend).
 ---
 
 ## 📁 Project Structure
-root/ \n
+root/                                                                                                         
 ├── backend/ # FastAPI backend
 │ ├── main.py # FastAPI app entry
 │ ├── team_builder.py
