@@ -79,7 +79,7 @@ App runs on: http://localhost:5173 (or as shown in terminal)
 
 ### Backend
 
-**Run tests using**:
+**Run tests using**:                                                                                                          
    cd backend                                                                                                                                                                
    pytest test_api.py                                                                                                      
 
@@ -126,7 +126,7 @@ Dark mode toggle
 
 ## 🧑‍💻 Author
 
-Nitin Kandpal
+Nitin Kandpal                                                                                                                                      
 GitHub: @Nitin-kandpal17
 
 
