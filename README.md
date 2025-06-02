@@ -80,17 +80,17 @@ App runs on: http://localhost:5173 (or as shown in terminal)
 ### Backend
 
 **Run tests using**:
-cd backend
-pytest test_api.py
+   cd backend                                                                                                                                                                
+   pytest test_api.py                                                                                                      
 
 ### Frontend
 
-**Manual testing**:
-✅ Search Pokémon by name/type/gen
+**Manual testing**: 
+✅ Search Pokémon by name/type/gen                                                                                              
 
-✅ Compare any two Pokémon
+✅ Compare any two Pokémon                                                                                               
 
-✅ Generate teams based on description
+✅ Generate teams based on description                                                                                       
 
 
 
