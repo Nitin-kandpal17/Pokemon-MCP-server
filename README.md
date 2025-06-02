@@ -11,22 +11,22 @@ Built with **FastAPI** (backend) and **React** (frontend).
 
 ## 📁 Project Structure
 root/                                                                                                         
-├── backend/ # FastAPI backend
-│ ├── main.py # FastAPI app entry
-│ ├── team_builder.py
-│ ├── information_retrieval.py
-│ ├── comparison.py
-│ └── test_api.py # Basic tests
-├── frontend/ # React frontend
-│ ├── src/
-│ │ ├── App.jsx
-│ │ ├── pages/
-│ │ │ ├── SearchPage.jsx
-│ │ │ ├── ComparePage.jsx
-│ │ │ └── TeamBuilderPage.jsx
-│ │ └── services/api.js
-├── README.md # Project guide
-└── .gitignore
+├── backend/ # FastAPI backend                                                                                                                 
+│ ├── main.py # FastAPI app entry                                                                                                                          
+│ ├── team_builder.py                                                                                                                                        
+│ ├── information_retrieval.py                                                                                                                                  
+│ ├── comparison.py                                                                                                                                            
+│ └── test_api.py # Basic tests                                                                                                                                
+├── frontend/ # React frontend                                                                                                                                       
+│ ├── src/                                                                                                                                                          
+│ │ ├── App.jsx                                                                                                                                                 
+│ │ ├── pages/                                                                                                                                                 
+│ │ │ ├── SearchPage.jsx                                                                                                                                             
+│ │ │ ├── ComparePage.jsx                                                                                                                                               
+│ │ │ └── TeamBuilderPage.jsx                                                                                                                                     
+│ │ └── services/api.js                                                                                                                                          
+├── README.md # Project guide                                                                                                                                    
+└── .gitignore                                                                                                                                                   
 
 
 
