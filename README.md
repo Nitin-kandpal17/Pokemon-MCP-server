@@ -5,7 +5,7 @@ A powerful web application that allows users to:
 - ⚔️ Compare two Pokémon side by side  
 - 🧩 Generate competitive teams from natural language descriptions
 
-Built with **FastAPI** (backend) and **React** (frontend), styled using **Tailwind CSS**.
+Built with **FastAPI** (backend) and **React** (frontend).
 
 ---
 
