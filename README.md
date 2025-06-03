@@ -5,15 +5,14 @@ A powerful web application that allows users to:
 - ⚔️ Compare two Pokémon side by side  
 - 🧩 Generate competitive teams from natural language descriptions
 
-Built with **FastAPI** (backend) and **React** (frontend), styled using **Tailwind CSS**.
-
+Built with **FastAPI** (backend) and **React** (frontend)
 ---
 
 ## 📁 Project Structure
 root/                          
-├── backend/ # FastAPI backend                      
-│ ├── main.py # FastAPI app entry                           
-│ ├── team_builder.py                       
+├── backend/ # FastAPI backend                                                             
+│ ├── main.py # FastAPI app entry                                                                     
+│ ├── team_builder.py                                                                 
 │ ├── information_retrieval.py                                  
 │ ├── comparison.py                                         
 │ └── test_api.py # Basic tests                                                 
