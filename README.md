@@ -10,23 +10,23 @@ Built with **FastAPI** (backend) and **React** (frontend), styled using **Tailwi
 ---
 
 ## 📁 Project Structure
-root/
-├── backend/ # FastAPI backend
-│ ├── main.py # FastAPI app entry
-│ ├── team_builder.py
-│ ├── information_retrieval.py
-│ ├── comparison.py
-│ └── test_api.py # Basic tests
-├── frontend/ # React frontend
-│ ├── src/
-│ │ ├── App.jsx
-│ │ ├── pages/
-│ │ │ ├── SearchPage.jsx
-│ │ │ ├── ComparePage.jsx
-│ │ │ └── TeamBuilderPage.jsx
-│ │ └── services/api.js
-├── README.md # Project guide
-└── .gitignore
+root/                          
+├── backend/ # FastAPI backend                      
+│ ├── main.py # FastAPI app entry                           
+│ ├── team_builder.py                       
+│ ├── information_retrieval.py                                  
+│ ├── comparison.py                                         
+│ └── test_api.py # Basic tests                                                 
+├── frontend/ # React frontend                                              
+│ ├── src/                                              
+│ │ ├── App.jsx                                         
+│ │ ├── pages/                                                  
+│ │ │ ├── SearchPage.jsx                                                
+│ │ │ ├── ComparePage.jsx                                                   
+│ │ │ └── TeamBuilderPage.jsx                                                       
+│ │ └── services/api.js                                                 
+├── README.md # Project guide                                           
+└── .gitignore                                                  
 
 
 
@@ -79,18 +79,18 @@ App runs on: http://localhost:5173 (or as shown in terminal)
 
 ### Backend
 
-**Run tests using**:
-cd backend
-pytest test_api.py
+**Run tests using**:                                
+cd backend                                      
+pytest test_api.py                                                  
 
 ### Frontend
 
-**Manual testing**:
-✅ Search Pokémon by name/type/gen
+**Manual testing**:                                         
+✅ Search Pokémon by name/type/gen                      
 
-✅ Compare any two Pokémon
+✅ Compare any two Pokémon                                  
 
-✅ Generate teams based on description
+✅ Generate teams based on description                                              
 
 
 

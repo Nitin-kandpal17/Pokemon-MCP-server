@@ -4,13 +4,13 @@ import SearchPage from './pages/SearchPage';
 import ComparePage from './pages/ComparePage';
 import TeamBuilderPage from './pages/TeamBuilderPage';
 import './App.css';
-import { getRootMessage } from './services/api';
+import { getWelcomeMessage } from './services/api';
 
 function App() {
   const [message, setMessage] = useState('');
 
   useEffect(() => {
-    getRootMessage().then((res) => setMessage(res.message));
+    getWelcomeMessage().then((res) => setMessage(res.message));
   }, []);
 
   return (

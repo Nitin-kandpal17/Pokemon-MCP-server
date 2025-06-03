@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { getPokemon } from '../services/api';
+import { getPokemonInfo } from '../services/api';
 
 function SearchPage() {
   const [query, setQuery] = useState('');
@@ -15,7 +15,7 @@ function SearchPage() {
     }
 
     try {
-      const data = await getPokemon(query.toLowerCase());
+      const data = await getPokemonInfo(query.toLowerCase());
       setPokemon(data);
     } catch (err) {
       setError('Pokémon not found. Please try another name or ID.');

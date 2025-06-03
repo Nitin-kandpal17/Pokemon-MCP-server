@@ -14,7 +14,7 @@ app = FastAPI()
 # Enable CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["http://localhost:5173"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -28,12 +28,9 @@ def root():
 def get_pokemon(name_or_id: str):
     data = get_pokemon_data(name_or_id)
     if data is None:
-        raise HTTPException(status_code=404, detail="Pokémon not found")
-    return {
-        "name": data["name"],
-        "types": [t["type"]["name"] for t in data["types"]],
-        "stats": {stat["stat"]["name"]: stat["base_stat"] for stat in data["stats"]}
-    }
+        raise HTTPException(status_code=404, detail="Pokemon not found")
+    return data
+
 
 @app.get("/pokemon/search/type/{type_name}")
 def by_type(type_name: str):

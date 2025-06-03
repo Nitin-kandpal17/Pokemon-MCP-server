@@ -6,8 +6,18 @@ import requests
 def get_pokemon_data(name_or_id):
     response = requests.get(f"https://pokeapi.co/api/v2/pokemon/{name_or_id}")
     if response.status_code == 200:
-        return response.json() 
+        data = response.json()
+        return {
+            "name": data["name"],
+            "types": [t["type"]["name"] for t in data["types"]],
+            "stats": {
+                stat["stat"]["name"]: stat["base_stat"]
+                for stat in data["stats"]
+            },
+            "image": data["sprites"]["front_default"]
+        }
     return None
+
 
 
 
