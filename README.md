@@ -10,7 +10,7 @@ Built with **FastAPI** (backend) and **React** (frontend)
 
 ## 📁 Project Structure
 root/                          
-├── backend/ # FastAPI backend                                                             
+├── backend/ # FastAPI backend                                                                             
 │ ├── main.py # FastAPI app entry                                                                     
 │ ├── team_builder.py                                                                 
 │ ├── information_retrieval.py                                  
@@ -125,7 +125,7 @@ Dark mode toggle
 
 ## 🧑‍💻 Author
 
-Nitin Kandpal
+Nitin Kandpal                                                                                                                                      
 GitHub: @Nitin-kandpal17
 
 
