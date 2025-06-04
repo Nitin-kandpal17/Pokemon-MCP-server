@@ -20,8 +20,6 @@ export const comparePokemon = async (pokemon1, pokemon2) => {
 };
 
 export const buildTeam = async (description) => {
-  const res = await axios.post(`${API_BASE}/team/build`, null, {
-    params: { description },
-  });
+  const res = await axios.post(`${API_BASE}/team-builder`, { description });
   return res.data.team;
 };

@@ -19,11 +19,12 @@ function App() {
         <h1 className="text-5xl font-extrabold mb-2">Pokémon MCP Frontend</h1>
         <p className="mb-4 text-lg">Backend Response: {message}</p>
 
-        <nav className="mb-8 space-x-6 text-lg font-semibold">
+        <nav className="mb-8 flex justify-center gap-6 text-lg font-semibold">
           <Link to="/" className="hover:text-yellow-300">Search</Link>
           <Link to="/compare" className="hover:text-yellow-300">Compare</Link>
           <Link to="/team-builder" className="hover:text-yellow-300">Team Builder</Link>
         </nav>
+
 
         <Routes>
           <Route path="/" element={<SearchPage />} />

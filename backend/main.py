@@ -54,8 +54,9 @@ def get_counters(type: str = Query(...)):
 
 @app.post("/team-builder")
 def team_builder(request: TeamBuildRequest):
-    result = build_team_from_description(request.description)
-    return {"team": result}
+    team = build_team_from_description(request.description)
+    return {"team": team}
+
 
 @app.get("/types")
 def get_types():
