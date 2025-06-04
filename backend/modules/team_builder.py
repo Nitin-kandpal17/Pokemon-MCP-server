@@ -1,7 +1,9 @@
 import nltk
 from nltk.tokenize import word_tokenize
 from pydantic import BaseModel
+import random
 
+# Ensure NLTK tokenizer is ready
 try:
     nltk.data.find('tokenizers/punkt')
 except LookupError:
@@ -32,28 +34,28 @@ POKEMON_TYPES = {
 class TeamBuildRequest(BaseModel):
     description: str
 
-def build_team_from_description(description: str):
+def build_team_from_description(description: str) -> list[str]:
     tokens = word_tokenize(description.lower())
     team_names = []
 
+    # Step 1: Match types in description
     for token in tokens:
         if token in POKEMON_TYPES:
             team_names.extend(POKEMON_TYPES[token])
 
-    team_names = list(dict.fromkeys(team_names))[:6]  # Deduplicate, limit to 6
+    # Step 2: Deduplicate
+    team_names = list(dict.fromkeys(team_names))
 
+    # Step 3: Fallback if no matches
     if not team_names:
-        team_names.append("pikachu")  # fallback
+        team_names.append("pikachu")
 
-    # Convert names to full Pokémon data
-    team = [
-        {
-            "name": name,
-            "img": POKEMON_DATA[name]["img"],
-            "types": POKEMON_DATA[name]["types"]
-        }
-        for name in team_names
-        if name in POKEMON_DATA
-    ]
+    # Step 4: Fill up to 6 with random unique Pokémon from all types
+    all_pokemon = set(p for pokes in POKEMON_TYPES.values() for p in pokes)
+    while len(team_names) < 6:
+        candidate = random.choice(list(all_pokemon))
+        if candidate not in team_names:
+            team_names.append(candidate)
 
-    return team
+    # Step 5: Return exactly 6 Pokémon
+    return team_names[:6]
